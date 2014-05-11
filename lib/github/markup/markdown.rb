@@ -4,6 +4,9 @@ module GitHub
   module Markup
     class Markdown < Implementation
       MARKDOWN_GEMS = {
+        "kramdown" => proc { |content|
+          Kramdown::Document.new(content).to_html
+        },
         "github/markdown" => proc { |content|
           GitHub::Markdown.render(content)
         },
@@ -15,9 +18,6 @@ module GitHub
         },
         "maruku" => proc { |content|
           Maruku.new(content).to_html
-        },
-        "kramdown" => proc { |content|
-          Kramdown::Document.new(content).to_html
         },
         "bluecloth" => proc { |content|
           BlueCloth.new(content).to_html
